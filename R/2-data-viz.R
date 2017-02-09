@@ -3,10 +3,12 @@ library(ggplot2)
 library(reshape2)
 library(gridExtra)
 
-votes %>% summarize(Trump       = sum(pref_cand_T == 1),
-                    Clinton     = n() - Trump,
-                    Trump_per   = mean(pref_cand_T == 1),
-                    Clinton_per = 1 - Trump_per)
+summary <- votes %>% summarize(Trump       = sum(pref_cand_T == 1),
+                               Clinton     = n() - Trump,
+                               Trump_per   = mean(pref_cand_T == 1),
+                               Clinton_per = 1 - Trump_per)
+
+knitr::ktable(summary, align = 'l')
 
 # plot total
 total <- votes %>% 

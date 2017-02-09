@@ -132,6 +132,12 @@ Source: CRAN
 Version: 1.6-7
 Hash: a8b909c7e06f7bfcbdbbad439799e25d
 
+Package: evaluate
+Source: CRAN
+Version: 0.10
+Hash: c3601a10c987d439e0c63ec635234a76
+Requires: stringr
+
 Package: foreach
 Source: CRAN
 Version: 1.4.3
@@ -167,6 +173,11 @@ Source: CRAN
 Version: 0.2.0
 Hash: cd78381a9d3fea966ac39bd0daaf5554
 
+Package: highr
+Source: CRAN
+Version: 0.6
+Hash: aa3d5b7912b5fed4b546ed5cd2a1760b
+
 Package: hms
 Source: CRAN
 Version: 0.3
@@ -194,6 +205,12 @@ Source: CRAN
 Version: 1.2
 Hash: 3a193a612cae6814719ed523f7e7cf44
 
+Package: knitr
+Source: CRAN
+Version: 1.15.1
+Hash: eed7437e2b614c9e3923b7932b16ac97
+Requires: digest, evaluate, highr, markdown, stringr, yaml
+
 Package: labeling
 Source: CRAN
 Version: 0.3
@@ -219,6 +236,12 @@ Package: magrittr
 Source: CRAN
 Version: 1.5
 Hash: bdc4d48c3135e8f3b399536ddf160df4
+
+Package: markdown
+Source: CRAN
+Version: 0.7.7
+Hash: fea2343a1119d61b0cc5c0a950d103a3
+Requires: mime
 
 Package: mgcv
 Source: CRAN
@@ -377,3 +400,8 @@ Package: xtable
 Source: CRAN
 Version: 1.8-2
 Hash: 7293235cfcc14cdff1ce7fd1a0212031
+
+Package: yaml
+Source: CRAN
+Version: 2.1.14
+Hash: c81230c3a7d9ba20607ad6b4331173d1

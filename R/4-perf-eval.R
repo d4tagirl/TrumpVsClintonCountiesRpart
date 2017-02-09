@@ -6,8 +6,10 @@ test <- test %>%
          pred_prob_T = predict(winner_rpart, type = "prob", test)[,2],
          error = ifelse(pred != pref_cand_T, 1, 0))
 
-test %>% 
+missc_error <- test %>% 
   summarize(missc_error = mean(error))  
+
+knitr::kable(missc_error, align = 'l')
 
 # Kappa statistic (confusion matrix)
 
@@ -67,5 +69,5 @@ train.rpart <- train(pref_cand_T ~ .,
                      data = votes[,-c(1:24, 70)], method = "rpart",
                      trControl = tc,  tuneGrid = rpart.grid)
 
-train.rpart$results
+knitr::kable(train.rpart$results, align = "l")
 
