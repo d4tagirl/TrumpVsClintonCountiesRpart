@@ -35,6 +35,9 @@ total <- votes %>%
         panel.grid.major = element_blank(), panel.border = element_blank())
 
 # plot by candidate
+
+limits = c("white", "white_alone", "black", "asian", "hisp_latin", "foreign")
+
 by_candidate <- votes %>% 
   group_by(pref_cand_T) %>% 
   summarize(

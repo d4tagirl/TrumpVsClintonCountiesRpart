@@ -6,21 +6,15 @@ library(tidyr)
 
 nt <- partial(ntile, n = 5)
 
-votes <- votes %>% 
-  # create quintile variables by race
+votes <- votes %>%
   mutate(white_alone_q    = nt(white_alone),
          white_q          = nt(white),
          black_q          = nt(black),
-         asian_q          = nt(asian),
          hisp_latin_q     = nt(hisp_latin),
-         foreign_q        = nt(foreign),
-  # create quintile variables by education
-         edu_batch_q      = nt(edu_batchelors), 
-  # create quintile variables by Housing_units_multistruct
+         edu_batch_q      = nt(edu_batchelors),
          urban_q          = nt(housing_units_multistruct),
-  # create quintile variables by Income
          income_q         = nt(income))
-# 
+# # 
 # race_q <- votes %>%
 #   select(Clinton, Trump, pref_cand_T,
 #          white_alone_q, white_q,
@@ -39,16 +33,15 @@ votes <- votes %>%
 # By race analysis #
 ####################
 
+limits = c("white", "white_alone", "black", "asian", "hisp_latin", "foreign")
+
 # plot by candidate
 by_candidate <- votes %>% 
   group_by(pref_cand_T) %>% 
   summarize(
-    white       = mean(white),
     white_alone = mean(white_alone),
     black       = mean(black),
-    asian       = mean(asian),
-    hisp_latin  = mean(hisp_latin),
-    foreign     = mean(foreign)) %>% 
+    hisp_latin  = mean(hisp_latin) %>% 
   gather(variable, value, -pref_cand_T) %>% 
   ggplot() + 
   geom_bar(aes(x = variable, y = value, fill = pref_cand_T),
@@ -65,12 +58,22 @@ by_candidate <- votes %>%
         axis.line = element_line(colour = "grey"), legend.position = "bottom", 
         panel.grid.major = element_blank(), panel.border = element_blank())
 
-# ggplot(by_race, aes(x = pref_cand_T, y = value)) + 
-# geom_col(aes(fill = pref_cand_T)) + 
-# facet_wrap(~variable
-#              # , scales = "free_y"
-#            ) + 
-# scale_fill_manual(values = alpha(c("blue", "red"))) 
+votes %>% 
+  group_by(pref_cand_T) %>% 
+  summarize(
+    white       = mean(white),
+    white_alone = mean(white_alone),
+    black       = mean(black),
+    asian       = mean(asian),
+    hisp_latin  = mean(hisp_latin),
+    foreign     = mean(foreign)) %>% 
+  gather(variable, value, -pref_cand_T) %>% 
+  ggplot(aes(x = pref_cand_T, y = value)) +
+  geom_col(aes(fill = pref_cand_T)) +
+  facet_wrap(~variable
+               # , scales = "free_y"
+             ) +
+  scale_fill_manual(values = alpha(c("blue", "red")))
 
 #######################
 # Black race analysis #
@@ -101,7 +104,7 @@ black_q <- votes %>%
     subtitle = "(Simple mean of % in counties without considering counties' population)",
     x = "Black quintile",
     y = "Mean of % of counties that voted for Trump") +
-  ylim(0.5, 1) +
+  ylim(0, 1) +
   theme_bw() +
   theme(axis.line = element_line(colour = "grey"), legend.position = "bottom", 
         panel.border = element_blank()) +
@@ -141,7 +144,7 @@ white_alone_q <- votes %>%
     subtitle = "(Simple mean of % in counties without considering counties' population)",
     x = "White_alone quintile",
     y = "Mean of % of counties that voted for Trump") +
-  ylim(0.5, 1) +
+  ylim(0, 1) +
   theme_bw() +
   theme(axis.line = element_line(colour = "grey"), legend.position = "bottom", 
         panel.border = element_blank()) +
